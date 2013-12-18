@@ -1,0 +1,16 @@
+{
+  "name": "Flashlight",
+  "version": "0.1.0",
+  "description": "A search utility for Firebase",
+  "homepage": "https://github.com/firebase/flashlight",
+  "author": {
+    "name": "Michael \"Kato\" Wulf",
+    "email": "katowulf@gmail.com"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "elastic.js": "~1.1.1",
+    "colors": "~0.6.2",
+    "JQDeferred": "~1.9.1"
+  }
+}
