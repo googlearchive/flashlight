@@ -63,7 +63,6 @@ exports.paths = [
 // When true, then foo only matches the whole word foo, unless user types in foo* or *foo*
 exports.MATCH_WORDS = !!process.env.FLASHLIGHT_WORDS;
 
-console.log('process.env.node_env', process.env.NODE_ENV); //debug
 // How often should the script remove unclaimed search results? probably just leave this alone
 exports.CLEANUP_INTERVAL =
    process.env.NODE_ENV === 'production'?
