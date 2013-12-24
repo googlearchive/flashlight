@@ -24,11 +24,12 @@ Try the example page from your local web server (located in example/ folder).
 Client Implementations
 ======================
 
-Check out `example/example.js` folder for a client implementation. It works like this:
+Read `example/index.html` and `example/example.js` for a client implementation. It works like this:
 
  - Push an object to `/search/request` which has the following keys: `index`, `type`, and `query`
- - The query object can be any valid ElasticSearch DSL structure (see More on Queries)
  - Listen on `/search/response` for the reply from the server
+
+The query object can be any valid ElasticSearch DSL structure (see More on Queries).
 
 More on Queries
 ---------------
@@ -42,10 +43,12 @@ Deploy to Heroku
  - `heroku login`
  - `heroku create` (add heroku to project)
  - `heroku addons:add bonsai` (install bonsai)
- - `heroku config`  (copy bonsai url into config.js)
+ - `heroku config`  (check bonsai instance info)
+ - `heroku config:set FB_NAME=<instance> FB_TOKEN="<token>"` (declare environment variables)
  - `git add conig.js` (update)
  - `git commit -m "configure bonsai"`
  - `git push heroku master` (deploy to heroku)
+ - `heroku ps:scale worker=1` (start dyno worker)
 
 Support
 =======
