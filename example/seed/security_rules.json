@@ -10,7 +10,7 @@
                ".read": "auth.id === data.child('id').val() || auth.uid === data.child('id').val()",
                // I can only write new records that don't exist yet
                ".write": "!data.exists() && (newData.id === auth.id || newData.id === auth.uid)",
-               ".validate": "newData.hasChildren(['term', 'index', 'type'])",
+               ".validate": "newData.hasChildren(['query', 'index', 'type'])",
                "index": {
                   // accepts arrays or strings
                   ".validate": "(newData.isString() && newData.val().length < 1000) || newData.hasChildren()",
@@ -25,12 +25,9 @@
                      ".validate": "newData.isString() && newData.val().length < 1000"
                   }
                },
-               "term": {
-                  ".validate": "newData.isString() && newData.val().length < 1000"
-               },
-               "words": {
-                  // optional (not in hasChildren() above)
-                  ".validate": "newData.isBoolean()"
+               "query": {
+                  // structure of the query object is pretty open-ended
+                  ".validate": "newData.isString() || newData.hasChildren()"
                },
                "$other": {
                   ".validate": false

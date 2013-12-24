@@ -1,4 +1,18 @@
 
+h2 span {
+   padding: 0 5px;
+   background-color: #eaeaea;
+   border-radius: 5px;
+}
+
+h2 span.zero, .zero {
+   color: #999;
+}
+
+h2 span.error, .error {
+   color: red;
+}
+
 #fork_on_github {
    position: absolute;
    top: 0;

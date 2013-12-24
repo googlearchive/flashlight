@@ -7,27 +7,40 @@
 /** ElasticSearch Settings
  *********************************************/
 
-// ElasticSearch server's host URL
-exports.ES_HOST  = process.env.FLASHLIGHT_ES_HOST || 'localhost';
+if( process.env.BONSAI_URL ) {
+   processBonsaiUrl(exports, process.env.BONSAI_URL);
+}
+else {
+   // ElasticSearch server's host URL
+   exports.ES_HOST  = process.env.ES_HOST || 'localhost';
 
-// ElasticSearch server's host port
-exports.ES_PORT  = process.env.FLASHLIGHT_ES_PORT || '9200';
+   // ElasticSearch server's host port
+   exports.ES_PORT  = process.env.ES_PORT || '9200';
+
+   // ElasticSearch username for http auth
+   exports.ES_USER  = process.env.ES_USER || null;
+
+   // ElasticSearch password for http auth
+   exports.ES_PASS  = process.env.ES_PASS || null;
+}
+
+
 
 /** Firebase Settings
   ***************************************************/
 
 // Your Firebase instance where we will listen and write search results
-exports.FB_URL   = 'https://' + process.env.FLASHLIGHT_FB_NAME + '.firebaseio.com/';
+exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com/';
 
 // Either your Firebase secret or a token you create with no expiry, used to authenticate
 // To Firebase and access search data.
-exports.FB_TOKEN = process.env.FLASHLIGHT_FB_TOKEN || null;
+exports.FB_TOKEN = process.env.FB_TOKEN || null;
 
 // The path in your Firebase where clients will write search requests
-exports.FB_REQ   = process.env.FLASHLIGHT_FB_REQ || 'search/request';
+exports.FB_REQ   = process.env.FB_REQ || 'search/request';
 
 // The path in your Firebase where this app will write the results
-exports.FB_RES   = process.env.FLASHLIGHT_FB_RES || 'search/response';
+exports.FB_RES   = process.env.FB_RES || 'search/response';
 
 /** Paths to Monitor
  *
@@ -69,3 +82,13 @@ exports.CLEANUP_INTERVAL =
    process.env.NODE_ENV === 'production'?
       3600*1000 /* once an hour */ :
       60*1000 /* once a minute */;
+
+
+function processBonsaiUrl(exports, url) {
+   var matches = url.match(/^https?:\/\/([^:]+):([^@]+)@([^/]+)\/?$/);
+   exports.ES_HOST = matches[3];
+   exports.ES_PORT = 80;
+   exports.ES_USER = matches[1];
+   exports.ES_PASS = matches[2];
+   console.log('processed bonsai url', url, exports);
+}

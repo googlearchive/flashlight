@@ -43,7 +43,7 @@
                    <li><label><input type="radio" name="type" value="user" checked> users</label></li>
                    <li><label><input type="radio" name="type" value="message"> messages</label></li>
                    <li class="divider"></li>
-                   <li><label><input type="checkbox" name="words"> Whole Words</label></li>
+                   <li><label><input type="checkbox" name="words"> whole words</label></li>
                </ul>
                <p class="help-block">You may use * or ? for wild cards in your search.</p>
            </form>
@@ -51,8 +51,8 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-           <h2>Results</h2>
-           <pre id="results" class="pre-scrollable"></pre>
+           <h2>Results <span id="total" class="zero">0</span></h2>
+           <pre id="results" class="pre-scrollable zero">(enter a search term)</pre>
         </div>
         <div class="col-md-6">
            <h2>Raw data</h2>
