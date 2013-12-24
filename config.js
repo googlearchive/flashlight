@@ -61,6 +61,7 @@ exports.paths = [
 
 // When false, all searches are surrounded with wildcards, e.g. *foo*, so all searches are "contains"
 // When true, then foo only matches the whole word foo, unless user types in foo* or *foo*
+// This is the default, but can be overridden by adding words: true/false into the search request
 exports.MATCH_WORDS = !!process.env.FLASHLIGHT_WORDS;
 
 // How often should the script remove unclaimed search results? probably just leave this alone

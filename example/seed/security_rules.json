@@ -1,0 +1,52 @@
+{
+   "rules": {
+
+      ".read": false,
+      ".write": false,
+      "search": {
+         "request": {
+            "$recid": {
+               // I can only read records assigned to me
+               ".read": "auth.id === data.child('id').val() || auth.uid === data.child('id').val()",
+               // I can only write new records that don't exist yet
+               ".write": "!data.exists() && (newData.id === auth.id || newData.id === auth.uid)",
+               ".validate": "newData.hasChildren(['term', 'index', 'type'])",
+               "index": {
+                  // accepts arrays or strings
+                  ".validate": "(newData.isString() && newData.val().length < 1000) || newData.hasChildren()",
+                  "$child": {
+                     ".validate": "newData.isString() && newData.val().length < 1000"
+                  }
+               },
+               "type": {
+                  // accepts arrays or strings
+                  ".validate": "(newData.isString() && newData.val().length < 1000) || newData.hasChildren()",
+                  "$child": {
+                     ".validate": "newData.isString() && newData.val().length < 1000"
+                  }
+               },
+               "term": {
+                  ".validate": "newData.isString() && newData.val().length < 1000"
+               },
+               "words": {
+                  // optional (not in hasChildren() above)
+                  ".validate": "newData.isBoolean()"
+               },
+               "$other": {
+                  ".validate": false
+               }
+            }
+         },
+         "response": {
+            "$recid": {
+               // I can only read/write records assigned to me
+               ".read": "auth.id === data.child('id').val() || auth.uid === data.child('id').val()",
+               ".write": "auth.id === data.child('id').val() || auth.uid === data.child('id').val()",
+               // Assumes that Flashlight will be writing the records using a secret or a token that has admin: true
+               // The only thing a logged in user needs to do is delete results after reading them
+               ".validate": false
+            }
+         }
+      }
+   }
+}
