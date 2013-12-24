@@ -14,7 +14,7 @@ Getting Started
  - Install and run [ElasticSearch](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html) or add [Bonsai service](https://addons.heroku.com/bonsai#starter) via Heroku
  - `git clone https://github.com/firebase/flashlight`
  - `npm install`
- - `edit config.js` (see comments)
+ - edit config.js (see comments)
  - `node app.js` (run the app)
 
 Check out the recommended security rules in example/seed/security_rules.json.

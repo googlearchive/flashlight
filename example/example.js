@@ -6,7 +6,6 @@
 
    // handle form submits
    $('form').on('submit', function(e) {
-      console.log('submitted?'); //debug
       e.preventDefault();
       var $form = $(this);
       var term = $form.find('[name="term"]').val();
@@ -23,13 +22,13 @@
    function doSearch(index, type, words, term) {
       var ref = new Firebase(URL+'/search');
       var key = ref.child('request').push({ index: index, term: term, type: type, words: words }).name();
-      console.log('search', key, { index: index, term: term, type: type, words: words }); //debug
+//      console.log('search', key, { index: index, term: term, type: type, words: words });
       ref.child('response/'+key).on('value', showResults);
    }
 
    function showResults(snap) {
       if( snap.val() === null ) { return; } // wait until we get data
-      console.log('result', snap.name(), snap.val()); //debug
+//      console.log('result', snap.name(), snap.val());
       snap.ref().off('value', showResults);
       snap.ref().remove();
       $('#results').text(JSON.stringify(snap.val(), null, 2));
