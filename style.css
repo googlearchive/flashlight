@@ -1,0 +1,39 @@
+
+h2 span {
+   padding: 0 5px;
+   background-color: #eaeaea;
+   border-radius: 5px;
+}
+
+h2 span.zero, .zero {
+   color: #999;
+}
+
+h2 span.error, .error {
+   color: red;
+}
+
+#fork_on_github {
+   position: absolute;
+   top: 0;
+   right: 0;
+   border: 0;
+}
+
+.list-inline label {
+   display: inline-block;
+   padding: 3px;
+   cursor: pointer;
+}
+
+.list-inline li.divider {
+   padding: 3px 20px;
+}
+
+.list-inline label:hover {
+   background-color: #fafafa;
+}
+
+@media (max-width: 767px) {
+   #fork_on_github { display: none }
+}
