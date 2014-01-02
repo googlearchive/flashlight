@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 var ElasticClient = require('elasticsearchclient'),
-    conf          = require('./config'),
-    fbutil        = require('./lib/fbutil'),
-    PathMonitor   = require('./lib/PathMonitor'),
-    SearchQueue   = require('./lib/SearchQueue');
+   conf          = require('./config'),
+   fbutil        = require('./lib/fbutil'),
+   PathMonitor   = require('./lib/PathMonitor'),
+   SearchQueue   = require('./lib/SearchQueue');
 
 // connect to ElasticSearch
 var esc = new ElasticClient({
@@ -18,8 +18,9 @@ var esc = new ElasticClient({
       password: conf.ES_PASS
    } : null
 });
+console.log('Connected to ElasticSearch host %s:%s'.grey, conf.ES_HOST, conf.ES_PORT);
 
 fbutil.auth(conf.FB_URL, conf.FB_TOKEN).done(function() {
    PathMonitor.process(esc, conf.FB_URL, conf.paths);
-   SearchQueue.init(esc, conf.FB_URL, conf.FB_REQ, conf.FB_RES, conf.MATCH_WORDS, conf.CLEANUP_INTERVAL);
+   SearchQueue.init(esc, conf.FB_URL, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
 });

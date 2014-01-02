@@ -1,7 +1,26 @@
 /**
  * This config file is provided as a convenience for development. You can either
  * set the environment variables on your server or modify the values here.
+ *
+ * At a minimum, you must set FB_URL and Paths to Monitor. Everything else is optional, assuming your
+ * ElasticSearch server is at localhost:9200.
  */
+
+/** Firebase Settings
+ ***************************************************/
+
+// Your Firebase instance where we will listen and write search results
+exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com/';
+
+// Either your Firebase secret or a token you create with no expiry, used to authenticate
+// To Firebase and access search data.
+exports.FB_TOKEN = process.env.FB_TOKEN || null;
+
+// The path in your Firebase where clients will write search requests
+exports.FB_REQ   = process.env.FB_REQ || 'search/request';
+
+// The path in your Firebase where this app will write the results
+exports.FB_RES   = process.env.FB_RES || 'search/response';
 
 
 /** ElasticSearch Settings
@@ -24,23 +43,6 @@ else {
    exports.ES_PASS  = process.env.ES_PASS || null;
 }
 
-
-
-/** Firebase Settings
-  ***************************************************/
-
-// Your Firebase instance where we will listen and write search results
-exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com/';
-
-// Either your Firebase secret or a token you create with no expiry, used to authenticate
-// To Firebase and access search data.
-exports.FB_TOKEN = process.env.FB_TOKEN || null;
-
-// The path in your Firebase where clients will write search requests
-exports.FB_REQ   = process.env.FB_REQ || 'search/request';
-
-// The path in your Firebase where this app will write the results
-exports.FB_RES   = process.env.FB_RES || 'search/response';
 
 /** Paths to Monitor
  *
@@ -69,13 +71,9 @@ exports.paths = [
    }
 ];
 
-/** Config Options
-  ***************************************************/
 
-// When false, all searches are surrounded with wildcards, e.g. *foo*, so all searches are "contains"
-// When true, then foo only matches the whole word foo, unless user types in foo* or *foo*
-// This is the default, but can be overridden by adding words: true/false into the search request
-exports.MATCH_WORDS = !!process.env.FLASHLIGHT_WORDS;
+/** Config Options
+ ***************************************************/
 
 // How often should the script remove unclaimed search results? probably just leave this alone
 exports.CLEANUP_INTERVAL =
@@ -83,12 +81,11 @@ exports.CLEANUP_INTERVAL =
       3600*1000 /* once an hour */ :
       60*1000 /* once a minute */;
 
-
 function processBonsaiUrl(exports, url) {
    var matches = url.match(/^https?:\/\/([^:]+):([^@]+)@([^/]+)\/?$/);
    exports.ES_HOST = matches[3];
    exports.ES_PORT = 80;
    exports.ES_USER = matches[1];
    exports.ES_PASS = matches[2];
-   console.log('processed bonsai url', url, exports);
+   console.log('Configured using BONSAI_URL environment variable', url, exports);
 }

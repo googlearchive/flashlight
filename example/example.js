@@ -2,7 +2,11 @@
  *************************************/
 (function ($) {
    "use strict";
-   var URL = 'https://flashlight.firebaseio.com';
+
+   /**====== SET ME =====**/
+   /**====== SET ME =====**/
+   /**====== SET ME =====**/
+   var URL = 'https://INSTANCE.firebaseio.com';
 
    // handle form submits
    $('form').on('submit', function(e) {
@@ -61,7 +65,7 @@
    }
 
    // display raw data for reference
-   new Firebase(URL).startAt(1).endAt(2).on('value', setRawData);
+   new Firebase(URL).on('value', setRawData);
    function setRawData(snap) {
       $('#raw').text(JSON.stringify(snap.val(), null, 2));
    }

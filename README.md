@@ -1,7 +1,7 @@
 Flashlight
 ==========
 
-A pluggable integration with ElasticSearch to provide contextual searches in Firebase.
+A pluggable integration with ElasticSearch to provide advanced content searches in Firebase.
 
 This script can:
  - monitor multiple Firebase paths and index data in real time
@@ -14,12 +14,12 @@ Getting Started
  - Install and run [ElasticSearch](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html) or add [Bonsai service](https://addons.heroku.com/bonsai#starter) via Heroku
  - `git clone https://github.com/firebase/flashlight`
  - `npm install`
- - edit config.js (see comments)
+ - edit config.js (see comments at the top, you must set FB_URL at a minimum)
  - `node app.js` (run the app)
 
 Check out the recommended security rules in example/seed/security_rules.json.
 
-Try the example page from your local web server (located in example/ folder).
+See example/README.md to seed and run an example client app.
 
 Client Implementations
 ======================
