@@ -1,4 +1,3 @@
-
 # Running this Example
 
  - Create a dev [Firebase instance](https://www.firebase.com/account)
@@ -7,11 +6,11 @@
     - [Download ElasticSearch](http://www.elasticsearch.org/download)
     - Unzip/Untar
     - `./bin/elasticsearch`
- - Configure `config.js` with your settings (you can use defaults if you set up ElasticSearch locally
+ - Configure `config.js` with your settings (you can use defaults if you set up ElasticSearch locally)
  - `node app.js`
  - Edit `example/example.js` to point to your Firebase URL
  - Start a local web server
-    - `npm install serve`
+    - `npm install -g serve`
     - `cd example/`
     - `serve`
- - Open [example/index.html in your browser](https://localhost:3000)
+ - Open [example/index.html in your browser](http://localhost:3000)
