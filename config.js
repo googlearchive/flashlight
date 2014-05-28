@@ -22,6 +22,8 @@ exports.FB_REQ   = process.env.FB_REQ || 'search/request';
 // The path in your Firebase where this app will write the results
 exports.FB_RES   = process.env.FB_RES || 'search/response';
 
+// The path in your Firebase where you will store your search paths to monitor (see Paths to Monitor below)
+exports.FB_PATHS = process.env.FB_PATHS || 'search/paths'; 
 
 /** ElasticSearch Settings
  *********************************************/
@@ -54,6 +56,10 @@ else {
  * {Array}    fields:  list of fields to be monitored (defaults to all fields)
  * {Function} filter:  if provided, only records that return true are indexed
  * {Function} parser:  if provided, the results of this function are passed to ES, rather than the raw data (fields is ignored if this is used)
+ *
+ * To store your paths dynamically, rather than specifying them all here, you can store them in Firebase.
+ * Format each path object with the same keys described above, and store the array of paths at whatever
+ * location you specified in the FB_PATHS variable. Be sure to restrict that data in your Security Rules.
  ****************************************************/
 
 exports.paths = [
