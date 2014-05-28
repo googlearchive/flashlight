@@ -43,7 +43,8 @@ Deploy to Heroku
  - `heroku login`
  - `heroku create` (add heroku to project)
  - `heroku addons:add bonsai` (install bonsai)
- - `heroku config`  (check bonsai instance info)
+ - `heroku config`  (check bonsai instance info and copy your new BONSAI_URL)
+ - `curl -X POST <bonsai_url>/firebase` (create initial "firebase" index. ex: https://user:pass@yourbonsai.bonsai.io/firebase)
  - `heroku config:set FB_NAME=<instance> FB_TOKEN="<token>"` (declare environment variables)
  - `git add conig.js` (update)
  - `git commit -m "configure bonsai"`
