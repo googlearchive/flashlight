@@ -22,8 +22,8 @@ exports.FB_REQ   = process.env.FB_REQ || 'search/request';
 // The path in your Firebase where this app will write the results
 exports.FB_RES   = process.env.FB_RES || 'search/response';
 
-// The path in your Firebase where you will store your search paths to monitor (see Paths to Monitor below)
-exports.FB_PATHS = process.env.FB_PATHS || 'search/paths'; 
+// The path in your Firebase where you will store your search paths to monitor. Example 'search/paths'. (see Paths to Monitor below)
+exports.FB_PATHS = process.env.FB_PATHS || null; 
 
 /** ElasticSearch Settings
  *********************************************/
