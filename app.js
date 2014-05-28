@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/*
+ * @version 0.02, 28 May 2014
+ */
+
 var ElasticClient = require('elasticsearchclient'),
    conf          = require('./config'),
    fbutil        = require('./lib/fbutil'),
