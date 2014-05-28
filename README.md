@@ -43,13 +43,19 @@ Deploy to Heroku
  - `heroku login`
  - `heroku create` (add heroku to project)
  - `heroku addons:add bonsai` (install bonsai)
- - `heroku config`  (check bonsai instance info and copy your new BONSAI_URL)
- - `curl -X POST <bonsai_url>/firebase` (create initial "firebase" index. ex: https://user:pass@yourbonsai.bonsai.io/firebase)
+ - `heroku config`  (check bonsai instance info and copy your new BONSAI_URL - you will need it later)
  - `heroku config:set FB_NAME=<instance> FB_TOKEN="<token>"` (declare environment variables)
  - `git add conig.js` (update)
  - `git commit -m "configure bonsai"`
  - `git push heroku master` (deploy to heroku)
  - `heroku ps:scale worker=1` (start dyno worker)
+
+Setup Initial Index with Bonsai
+===============================
+
+After you've deployed to Heroku, you need to create your initial index name to prevent IndexMissingException error from Bonsai. Create an index called "firebase" via curl using the BONSAI_URL that you copied during Heroku deployment.
+
+ - `curl -X POST <BONSAI_URL>/firebase` (ex: https://user:pass@yourbonsai.bonsai.io/firebase)
 
 Support
 =======
