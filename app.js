@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * @version 0.02, 28 May 2014
+ * @version 0.3, 3 June 2014
  */
 
 var ElasticClient = require('elasticsearchclient'),
@@ -25,6 +25,6 @@ var esc = new ElasticClient({
 console.log('Connected to ElasticSearch host %s:%s'.grey, conf.ES_HOST, conf.ES_PORT);
 
 fbutil.auth(conf.FB_URL, conf.FB_TOKEN).done(function() {
-   PathMonitor.process(esc, conf.FB_URL, conf.paths, conf.FB_PATHS);
+   PathMonitor.process(esc, conf.FB_URL, conf.paths, conf.FB_PATH);
    SearchQueue.init(esc, conf.FB_URL, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
 });

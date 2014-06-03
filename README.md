@@ -18,8 +18,12 @@ Getting Started
  - `node app.js` (run the app)
 
 Check out the recommended security rules in example/seed/security_rules.json.
-
 See example/README.md to seed and run an example client app.
+
+If you experience errors like `{"error":"IndexMissingException[[firebase] missing]","status":404}`, you may need
+to manually create the index referenced in each path:
+
+    curl -X POST http://localhost:9200/firebase
 
 Client Implementations
 ======================
@@ -50,8 +54,7 @@ Deploy to Heroku
  - `git push heroku master` (deploy to heroku)
  - `heroku ps:scale worker=1` (start dyno worker)
 
-Setup Initial Index with Bonsai
-===============================
+### Setup Initial Index with Bonsai
 
 After you've deployed to Heroku, you need to create your initial index name to prevent IndexMissingException error from Bonsai. Create an index called "firebase" via curl using the BONSAI_URL that you copied during Heroku deployment.
 
