@@ -49,7 +49,7 @@ Deploy to Heroku
  - `heroku addons:add bonsai` (install bonsai)
  - `heroku config`  (check bonsai instance info and copy your new BONSAI_URL - you will need it later)
  - `heroku config:set FB_NAME=<instance> FB_TOKEN="<token>"` (declare environment variables)
- - `git add conig.js` (update)
+ - `git add config.js` (update)
  - `git commit -m "configure bonsai"`
  - `git push heroku master` (deploy to heroku)
  - `heroku ps:scale worker=1` (start dyno worker)
