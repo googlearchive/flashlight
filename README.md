@@ -38,6 +38,12 @@ The query object can be any valid ElasticSearch DSL structure (see More on Queri
 More on Queries
 ---------------
 
+The full ElasticSearch API is supported. For example, you can control the number of matches (defaults to 10) and initial offset for paginating search results:
+
+```
+queryObj : { "from" : 0, "size" : 50 , "query": queryObj }; 
+```
+
 Check out [this great tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html) on querying ElasticSearch. And be sure to read the [ElasticSearch API Reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/).
 
 Deploy to Heroku
