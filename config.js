@@ -10,17 +10,29 @@
  ***************************************************/
 
 // Your Firebase instance where we will listen and write search results
-exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com/';
-
-// Either your Firebase secret or a token you create with no expiry, used to authenticate
-// To Firebase and access search data.
-exports.FB_TOKEN = process.env.FB_TOKEN || null;
+exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com';
 
 // The path in your Firebase where clients will write search requests
 exports.FB_REQ   = process.env.FB_REQ || 'search/request';
 
 // The path in your Firebase where this app will write the results
 exports.FB_RES   = process.env.FB_RES || 'search/response';
+
+// See https://firebase.google.com/docs/web/setup#project_setup for how to
+// auto-generate this config
+exports.FB_SERVICEACCOUNT = {
+  "type": "service_account",
+  "project_id": process.env.FB_NAME || null,
+  "private_key_id": process.env.FB_PRIVATEKEY_ID || null,
+  "private_key": process.env.FB_PRIVATEKEY || null,
+  "client_email": process.env.FB_EMAIL || null,
+  "client_id": process.env.FB_CLIENT_ID,
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/" + process.env.FB_EMAIL
+}
+
 
 /** ElasticSearch Settings
  *********************************************/

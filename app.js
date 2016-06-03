@@ -24,7 +24,6 @@ var esc = new ElasticClient({
 });
 console.log('Connected to ElasticSearch host %s:%s'.grey, conf.ES_HOST, conf.ES_PORT);
 
-fbutil.auth(conf.FB_URL, conf.FB_TOKEN).done(function() {
-   PathMonitor.process(esc, conf.FB_URL, conf.paths, conf.FB_PATH);
-   SearchQueue.init(esc, conf.FB_URL, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
-});
+fbutil.init(conf.FB_URL, conf.FB_SERVICEACCOUNT);
+PathMonitor.process(esc, conf.paths, conf.FB_PATH);
+SearchQueue.init(esc, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
