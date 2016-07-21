@@ -20,7 +20,7 @@ exports.FB_RES   = process.env.FB_RES || 'search/response';
 
 // See https://firebase.google.com/docs/server/setup. for how to
 // auto-generate this config json ...
-exports.FB_SERVICEACCOUNT = process.env.FB_SERVICEJSONPATH
+exports.FB_SERVICEACCOUNT = process.env.FB_SERVICEJSONPATH;
 
 /** ElasticSearch Settings
  *********************************************/
