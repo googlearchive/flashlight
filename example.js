@@ -2,7 +2,32 @@
  *************************************/
 (function ($) {
    "use strict";
-   var URL = 'https://flashlight.firebaseio.com';
+
+   /**====== SET ME =====**/
+   /**====== SET ME =====**/
+   /**====== SET ME =====**/
+   // Set the configuration for your app
+   // TODO: Replace with your project's config object
+   var config =  {
+      apiKey: "AIzaSyCQAwrCtKHfLmXU2q0lrk5rFzXSjcR5TIo",
+      authDomain: "flashlight.firebaseapp.com",
+      databaseURL: "https://flashlight.firebaseio.com",
+      storageBucket: "firebase-flashlight.appspot.com"
+   };
+
+  // TODO: Replace this with the path to your ElasticSearch queue
+  // TODO: This is monitored by your app.js node script on the server
+  // TODO: And this should match your seed/security_rules.json
+  var PATH = "search";
+  /**====== /SET ME =====**/
+  /**====== /SET ME =====**/
+  /**====== /SET ME =====**/
+
+  // Initialize connection using our project credentials
+  firebase.initializeApp(config);
+
+  // Get a reference to the database service
+   var database = firebase.database();
 
    // handle form submits
    $('form').on('submit', function(e) {
@@ -11,7 +36,7 @@
       var term = $form.find('[name="term"]').val();
       var words = $form.find('[name="words"]').is(':checked');
       if( term ) {
-         doSearch($form.find('[name="index"]').val(), $form.find('[name="type"]:checked').val(), buildQuery(term, words));
+         doSearch($form.find('[name="index"]').val(), $form.find('[name="type"]:checked').val(), makeTerm(term, words));
       }
       else {
          $('#results').text('');
@@ -20,18 +45,18 @@
 
    // display search results
    function doSearch(index, type, query) {
-      var ref = new Firebase(URL+'/search');
-      var key = ref.child('request').push({ index: index, type: type, query: query }).name();
+      var ref = database.ref().child(PATH);
+      var key = ref.child('request').push({ index: index, type: type, query: query }).key;
+      
       console.log('search', key, { index: index, type: type, query: query });
       ref.child('response/'+key).on('value', showResults);
    }
 
    function showResults(snap) {
-      if( snap.val() === null ) { return; } // wait until we get data
+      if( !snap.exists() ) { return; } // wait until we get data
       var dat = snap.val();
-//      console.log('result', snap.name(), snap.val());
-      snap.ref().off('value', showResults);
-      snap.ref().remove();
+      snap.ref.off('value', showResults);
+      snap.ref.remove();
       var $pair = $('#results')
          .text(JSON.stringify(dat, null, 2))
          .add( $('#total').text(dat.total) )
@@ -44,14 +69,6 @@
       }
    }
 
-   function buildQuery(term, words) {
-      // See this tut for more query options:
-      // http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html#match-all--find-everything
-      return {
-         'query_string': { query: makeTerm(term, words) }
-      };
-   }
-
    function makeTerm(term, matchWholeWords) {
       if( !matchWholeWords ) {
          if( !term.match(/^\*/) ) { term = '*'+term; }
@@ -61,7 +78,7 @@
    }
 
    // display raw data for reference
-   new Firebase(URL).startAt(1).endAt(2).on('value', setRawData);
+   database.ref().on('value', setRawData);
    function setRawData(snap) {
       $('#raw').text(JSON.stringify(snap.val(), null, 2));
    }
