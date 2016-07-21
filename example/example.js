@@ -32,7 +32,7 @@
    }
 
    function showResults(snap) {
-      if( snap.val() === null ) { return; } // wait until we get data
+      if( !snap.exists() ) { return; } // wait until we get data
       var dat = snap.val();
       snap.ref().off('value', showResults);
       snap.ref().remove();
