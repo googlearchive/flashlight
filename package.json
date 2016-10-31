@@ -4,11 +4,16 @@
   "description": "A search utility for Firebase",
   "homepage": "https://github.com/firebase/flashlight",
   "author": {
-    "name": "Michael \"Kato\" Wulf",
+    "name": "Kato Richardson",
     "email": "katowulf@gmail.com"
   },
   "engines": {
     "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
+    "deploy": "gcloud app deploy"
   },
   "main": "app.js",
   "devDependencies": {},
