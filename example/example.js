@@ -7,10 +7,7 @@
   // Set the configuration for your app
   // TODO: Replace with your project's config object
   var config = {
-    apiKey: '<your-api-key>',
-    authDomain: '<your-auth-domain>',
-    databaseURL: '<your-database-url>',
-    storageBucket: '<your-storage-bucket>'
+    databaseURL: "https://flashlight.firebaseio.com"
   };
 
   // TODO: Replace this with the path to your ElasticSearch queue
@@ -44,9 +41,17 @@
   // display search results
   function doSearch(index, type, query) {
     var ref = database.ref().child(PATH);
-    var key = ref.child('request').push({ index: index, type: type, query: query }).key;
+    var key = ref.child('request').push({
+      index: index,
+      type: type,
+      query: query
+      // Our example just turns query into a string. However, it can be a string or an object.
+      // If passed as an object, it is declared as the `body` parameter.
+      // If passed as a string, it is declared as the `q` parameter.
+      // See https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-search
+    }).key;
 
-    console.log('search', key, { index: index, type: type, query: query });
+    console.log('search', key, {index: index, type: type, query: query});
     ref.child('response/'+key).on('value', showResults);
   }
 

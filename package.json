@@ -7,9 +7,6 @@
     "name": "Kato Richardson",
     "email": "katowulf@gmail.com"
   },
-  "engines": {
-    "node": "0.10.x"
-  },
   "scripts": {
     "start": "node app.js",
     "monitor": "nodemon app.js",
@@ -20,8 +17,7 @@
   "dependencies": {
     "JQDeferred": "~1.9.1",
     "colors": "~0.6.2",
-    "elastic.js": "^1.2.0",
     "elasticsearch": "^11.0.1",
-    "firebase": "^3.5.0"
+    "firebase": "^3.5.2"
   }
 }

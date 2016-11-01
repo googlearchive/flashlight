@@ -26,7 +26,8 @@
                   }
                },
                "query": {
-                  // structure of the query object is pretty open-ended
+                  // lucene formatted string, such as "title:search_term" or an object
+                  // see https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-search
                   ".validate": "newData.isString() || newData.hasChildren()"
                },
                "$other": {
