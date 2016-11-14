@@ -10,36 +10,36 @@
  ***************************************************/
 
 // Your Firebase instance where we will listen and write search results
-exports.FB_URL = 'https://' + process.env.FB_NAME + '.firebaseio.com';
+exports.FB_URL   = 'https://flashlight.firebaseio.com';
 
 // The path in your Firebase where clients will write search requests
-exports.FB_REQ = process.env.FB_REQ || 'search/request';
+exports.FB_REQ   = process.env.FB_REQ || 'search/request';
 
 // The path in your Firebase where this app will write the results
-exports.FB_RES = process.env.FB_RES || 'search/response';
+exports.FB_RES   = process.env.FB_RES || 'search/response';
 
 // See https://firebase.google.com/docs/server/setup. for how to
 // auto-generate this config json ...
-exports.FB_SERVICEACCOUNT = process.env.FB_SERVICEJSONPATH;
+exports.FB_SERVICEACCOUNT = 'service-account.json'; //process.env.FB_SERVICEJSONPATH;
 
 /** ElasticSearch Settings
  *********************************************/
 
-if (process.env.BONSAI_URL) {
+if( process.env.BONSAI_URL ) {
    processBonsaiUrl(exports, process.env.BONSAI_URL);
 }
 else {
    // ElasticSearch server's host URL
-   exports.ES_HOST = process.env.ES_HOST || 'localhost';
+   exports.ES_HOST  = process.env.ES_HOST || '162.222.180.105';
 
    // ElasticSearch server's host port
-   exports.ES_PORT = process.env.ES_PORT || '9200';
+   exports.ES_PORT  = process.env.ES_PORT || '9200';
 
    // ElasticSearch username for http auth
-   exports.ES_USER = process.env.ES_USER || null;
+   exports.ES_USER  = process.env.ES_USER || null;
 
    // ElasticSearch password for http auth
-   exports.ES_PASS = process.env.ES_PASS || null;
+   exports.ES_PASS  = process.env.ES_PASS || null;
 }
 
 /** Paths to Monitor
