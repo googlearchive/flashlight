@@ -32,21 +32,10 @@ Client Implementations
 
 Read `example/index.html` and `example/example.js` for a client implementation. It works like this:
 
- - Push an object to `/search/request` which has the following keys: `index`, `type`, and `query`
+ - Push an object to `/search/request` which has the following keys: `index`, `type`, and `q` (or `body` for advanced queries)
  - Listen on `/search/response` for the reply from the server
 
-The query object can be any valid ElasticSearch DSL structure (see More on Queries).
-
-More on Queries
----------------
-
-The full ElasticSearch API is supported. For example, you can control the number of matches (defaults to 10) and initial offset for paginating search results:
-
-```
-queryObj : { "from" : 0, "size" : 50 , "query": queryObj }; 
-```
-
-Check out [this great tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html) on querying ElasticSearch. And be sure to read the [ElasticSearch API Reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/).
+The `body` object can be any valid ElasticSearch DSL structure (see More on Queries).
 
 Deploy to Heroku
 ================
@@ -67,6 +56,93 @@ Deploy to Heroku
 After you've deployed to Heroku, you need to create your initial index name to prevent IndexMissingException error from Bonsai. Create an index called "firebase" via curl using the BONSAI_URL that you copied during Heroku deployment.
 
  - `curl -X POST <BONSAI_URL>/firebase` (ex: https://user:pass@yourbonsai.bonsai.io/firebase)
+ 
+ More on Queries
+ ---------------
+ 
+ The full ElasticSearch API is supported. Check out [this great tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html) on querying ElasticSearch. And be sure to read the [ElasticSearch API Reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/).
+ 
+ ### Example: Simple text search
+
+```
+ {
+   "q": "foo*"
+ }
+ ```
+ 
+ ### Example: Paginate
+ 
+ You can control the number of matches (defaults to 10) and initial offset for paginating search results:
+ ```
+ {
+   "from" : 0, 
+   "size" : 50, 
+   "body": {
+     "query": {
+        "match": {
+           "_all": "foo"
+        }
+     }
+   }
+ }; 
+ ```
+ 
+ #### Example: Search for multiple tags or categories
+ 
+ ```
+ {
+   "body": {
+     "query": {
+       { "tag": [ "foo", "bar" ] }
+     }
+   }
+ }
+ ```
+ 
+ [read more](https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html)
+
+### Example: Search only specific fields
+```
+ {
+   "body": {
+     "query": {
+       "match": {
+         "field":  "foo",
+       }
+     }
+   }
+ }
+```
+ 
+### Example: Give more weight to specific fields
+```
+ {
+   "body": {
+     "query": {
+       "multi_match": {
+         "query":  "foo",
+         "type":   "most_fields", 
+         "fields": [ 
+            "important_field^10", // adding ^10 makes this field relatively more important 
+            "trivial_field" 
+         ]
+       }
+     }
+   }
+ }
+```
+
+[read more](https://www.elastic.co/guide/en/elasticsearch/guide/current/most-fields.html)
+
+#### Helpful section of ES docs
+ 
+ [Search lite (simple text searches with `q`)](https://www.elastic.co/guide/en/elasticsearch/guide/current/search-lite.html)
+ [Finding exact values](https://www.elastic.co/guide/en/elasticsearch/guide/current/_finding_exact_values.html)
+ [Sorting and relevance](https://www.elastic.co/guide/en/elasticsearch/guide/current/sorting.html)
+ [Partial matching](https://www.elastic.co/guide/en/elasticsearch/guide/current/partial-matching.html)
+ [Wildcards and regexp](https://www.elastic.co/guide/en/elasticsearch/guide/current/_wildcard_and_regexp_queries.html)
+ [Proximity matching](https://www.elastic.co/guide/en/elasticsearch/guide/current/proximity-matching.html)
+ [Dealing with human language](https://www.elastic.co/guide/en/elasticsearch/guide/current/languages.html)
 
 Support
 =======

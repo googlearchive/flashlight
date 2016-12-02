@@ -1,12 +1,8 @@
 {
   "name": "Flashlight",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A search utility for Firebase",
   "homepage": "https://github.com/firebase/flashlight",
-  "author": {
-    "name": "Kato Richardson",
-    "email": "katowulf@gmail.com"
-  },
   "scripts": {
     "start": "node app.js",
     "monitor": "nodemon app.js",
