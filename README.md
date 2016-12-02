@@ -96,18 +96,19 @@ Building ElasticSearch Queries
  
  The full ElasticSearch API is supported. Check out [this great tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html) on querying ElasticSearch. And be sure to read the [ElasticSearch API Reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/).
  
- ### Example: Simple text search
+### Example: Simple text search
 
 ```
  {
    "q": "foo*"
  }
- ```
+```
  
- ### Example: Paginate
+### Example: Paginate
  
- You can control the number of matches (defaults to 10) and initial offset for paginating search results:
- ```
+You can control the number of matches (defaults to 10) and initial offset for paginating search results:
+
+```
  {
    "from" : 0, 
    "size" : 50, 
@@ -119,11 +120,11 @@ Building ElasticSearch Queries
      }
    }
  }; 
- ```
+```
  
- #### Example: Search for multiple tags or categories
+#### Example: Search for multiple tags or categories
  
- ```
+```
  {
    "body": {
      "query": {
@@ -131,9 +132,9 @@ Building ElasticSearch Queries
      }
    }
  }
- ```
+```
  
- [read more](https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html)
+[read more](https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html)
 
 ### Example: Search only specific fields
 ```
