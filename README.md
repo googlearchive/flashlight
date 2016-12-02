@@ -57,8 +57,11 @@ After you've deployed to Heroku, you need to create your initial index name to p
 
  - `curl -X POST <BONSAI_URL>/firebase` (ex: https://user:pass@yourbonsai.bonsai.io/firebase)
  
- More on Queries
- ---------------
+ Advanced Topics
+ ===============
+ 
+ Building ElasticSearch Queries
+ ------------------------------
  
  The full ElasticSearch API is supported. Check out [this great tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html) on querying ElasticSearch. And be sure to read the [ElasticSearch API Reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/).
  
@@ -143,6 +146,53 @@ After you've deployed to Heroku, you need to create your initial index name to p
  [Wildcards and regexp](https://www.elastic.co/guide/en/elasticsearch/guide/current/_wildcard_and_regexp_queries.html)
  [Proximity matching](https://www.elastic.co/guide/en/elasticsearch/guide/current/proximity-matching.html)
  [Dealing with human language](https://www.elastic.co/guide/en/elasticsearch/guide/current/languages.html)
+
+Operating at massive scale
+--------------------------
+Is Flashlight designed to work at millions or requests per second? 
+No. It's designed to be a template for implementing your production services. 
+Some assembly required.
+
+Here are a couple quick optimizations you can make to improve scale:
+ * Separate the indexing worker and the query worker (this could be
+   as simple as creating two Flashlight workers, opening `app.js` in each,
+   and commenting out SearchQueue.init() or PathMonitor.process() respectively.
+ * When your service restarts, all data is re-indexed. To prevent this,
+   you can use pathBuilder as described in the next section.
+ * With a bit of work, both PathMonitor and SearchQueue could be adapted 
+   to function as a Service Worker for 
+   [firebase-queue](https://github.com/firebase/firebase-queue),    
+   allowing multiple workers and potentially hundreds of thousands of 
+   writes per second (with minor degredation and no losses at even higher throughput).
+
+Use refBuilder to improve indexing efficiency
+---------------------------------------------
+In `config.js`, each entry in `paths` can be assigned a `pathBuilder`
+function. This can construct a query for determining which records
+get indexed. 
+
+This can be utilized to improve efficiency by preventing all data from
+being re-indexed any time the Flashlight service is restarted, and generally
+by preventing a large backlog from being read into memory at once.
+
+For example, if I were indexing chat messages, and they
+had a timestamp field, I could use the following to never look back
+more than a day during a server restart:
+
+```
+exports.paths = [
+   {
+      path  : "chat/messages",
+      index : "firebase",
+      type  : "message",
+      fields: ['message_body', 'tags'],
+      pathBuilder: function(ref, path) {
+         return ref.orderByChild('timestamp').startAt(Date.now());
+      }
+   }
+];
+```
+
 
 Support
 =======

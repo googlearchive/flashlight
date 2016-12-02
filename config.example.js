@@ -53,6 +53,7 @@ else {
  * {Array}    omit:    list of fields that should not be indexed in ES (ignored if "parser" is specified)
  * {Function} filter:  if provided, only records that return true are indexed
  * {Function} parser:  if provided, the results of this function are passed to ES, rather than the raw data (fields is ignored if this is used)
+ * {Function} refBuilder: see README
  *
  * To store your paths dynamically, rather than specifying them all here, you can store them in Firebase.
  * Format each path object with the same keys described above, and store the array of paths at whatever
@@ -71,7 +72,10 @@ exports.paths = [
     type  : "message",
     fields: ['msg', 'name'],
     filter: function(data) { return data.name !== 'system'; }
+    // see readme
     //, parser: function(data) { data.msg = data.msg.toLowerCase(); return data; }
+    // see readme
+    //, refBuilder: function(ref, path) { return ref.orderBy(path.sortField).startAt(Date.now()); }
   }
 ];
 
