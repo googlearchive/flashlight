@@ -90,7 +90,7 @@ parse: function(data) {
    };
 }
 ```
- 
+
 Building ElasticSearch Queries
 ------------------------------
  
@@ -224,10 +224,25 @@ exports.paths = [
 ];
 ```
 
+Loading paths to index from the database instead of config file
+---------------------------------------------------------------
+
+Paths to be indexed can be loaded dynamically from the database by
+providing a path string instead of the `paths` array. For example,
+the paths given in config.example.js could be replaced with `dynamic_paths`
+and then those paths could be stored in the database, similar to 
+[this](https://kato-flashlight-dev.firebaseio.com/dynamic_paths.json?print=pretty).
+
+Any updates to the database paths are handled by Flashlight (new paths are
+indexed when they are added, old paths stop being indexed when they
+are removed).
+
+Unfortunately, since JSON data stored in Firebase can't contain functions,
+the `filter`, `parser`, and `refBuilder` options can't be used with this
+approach.
 
 Support
 =======
-
 Submit questions or bugs using the [issue tracker](https://github.com/firebase/flashlight).
 
 For Firebase-releated questions, try the [mailing list](https://groups.google.com/forum/#!forum/firebase-talk).

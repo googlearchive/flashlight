@@ -59,7 +59,6 @@ else {
  * Format each path object with the same keys described above, and store the array of paths at whatever
  * location you specified in the FB_PATHS variable. Be sure to restrict that data in your Security Rules.
  ****************************************************/
-
 exports.paths = [
   {
     path : "users",
@@ -79,8 +78,8 @@ exports.paths = [
   }
 ];
 
-// Paths can also be stored in Firebase and loaded using FB_PATHS!
-exports.FB_PATH = process.env.FB_PATHS || null;
+// Paths can also be stored in Firebase! See README for details.
+//exports.paths = process.env.FB_PATHS || null;
 
 // Additional options for ElasticSearch client
 exports.ES_OPTS = {
