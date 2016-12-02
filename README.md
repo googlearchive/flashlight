@@ -57,8 +57,8 @@ After you've deployed to Heroku, you need to create your initial index name to p
 
  - `curl -X POST <BONSAI_URL>/firebase` (ex: https://user:pass@yourbonsai.bonsai.io/firebase)
  
- Advanced Topics
- ===============
+Advanced Topics
+===============
  
 Parsing and filtering indexed data
 ----------------------------------
