@@ -60,8 +60,39 @@ After you've deployed to Heroku, you need to create your initial index name to p
  Advanced Topics
  ===============
  
- Building ElasticSearch Queries
- ------------------------------
+Parsing and filtering indexed data
+----------------------------------
+The `paths` specified in `config.js` can include the special `filter`
+and `parse` functions to manipulate the contents of the index. For
+example, if I had a messaging app, but I didn't want to index any
+system-generated messages, I could add the following filter to my
+messages path:
+
+```
+filter: function(data) { return data.name !== 'system'; }
+```
+
+Here, data represents the JSON snapshot obtained from the database. If
+this method does not return true, that record will not be indexed. Note
+that the `filter` method is applied before `parse`.
+
+If I want to remove or alter data getting indexed, that is done using the
+`parse` function. For example, assume I wanted to index user records, but
+ remove any private information from the index. I could add a parse
+ function to do this:
+ 
+```
+parse: function(data) {
+   return {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      birthday: new Date(data.birthday_as_number).toISOString()
+   };
+}
+```
+ 
+Building ElasticSearch Queries
+------------------------------
  
  The full ElasticSearch API is supported. Check out [this great tutorial](http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html) on querying ElasticSearch. And be sure to read the [ElasticSearch API Reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/).
  
