@@ -35,7 +35,7 @@ Read `example/index.html` and `example/example.js` for a client implementation. 
  - Push an object to `/search/request` which has the following keys: `index`, `type`, and `q` (or `body` for advanced queries)
  - Listen on `/search/response` for the reply from the server
 
-The `body` object can be any valid ElasticSearch DSL structure (see More on Queries).
+The `body` object can be any valid ElasticSearch DSL structure (see [Building ElasticSearch Queries](https://github.com/firebase/flashlight#building-elasticsearch-queries)).
 
 Deploy to Heroku
 ================
@@ -57,6 +57,45 @@ After you've deployed to Heroku, you need to create your initial index name to p
 
  - `curl -X POST <BONSAI_URL>/firebase` (ex: https://user:pass@yourbonsai.bonsai.io/firebase)
  
+Migration
+=========
+
+0.2.0 -> 0.3.0
+-----------------
+
+Flashlight now returns the direct output of ElasticSearch, instead of just returning the _hits_ part. This change is required to support _aggregations_ and include richer information. You must change how you read the reponse accordingly. You can see example responses of Flashlight below:
+
+### Before, in 0.2.0
+```
+"total" : 1000,
+"max_score" : null,
+"hits" : [
+  ..
+]
+```
+### After, in 0.3.0
+```
+{
+  "took" : 63,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 1000,
+    "max_score" : null,
+    "hits" : [
+      ..
+    ]
+  },
+  "aggregations" : {
+    ..
+  }
+}
+```
+
 Advanced Topics
 ===============
  

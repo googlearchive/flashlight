@@ -99,8 +99,8 @@
 
   // when results are written to the database, read them and display
   function showResults(snap) {
-    var dat = snap.val();
-    if( dat === null ) { return; } // wait until we get data
+    if( !snap.exists() ) { return; } // wait until we get data
+    var dat = snap.val().hits;
 
     // when a value arrives from the database, stop listening
     // and remove the temporary data from the database
