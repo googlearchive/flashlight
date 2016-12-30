@@ -10,7 +10,7 @@
  ***************************************************/
 
 // Your Firebase instance where we will listen and write search results
-exports.FB_URL   = 'https://<YOUR APP>.firebaseio.com';
+exports.FB_URL   = process.env.FB_URL || 'https://<YOUR APP>.firebaseio.com';
 
 // The path in your Firebase where clients will write search requests
 exports.FB_REQ   = process.env.FB_REQ || 'search/request';

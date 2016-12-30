@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  flashlight:
+    build: .
+    image: flashlight:dev
+    environment:
+      FB_URL: https://my-project.firebaseio.com
+      ES_HOST: elasticsearch
+      NODE_ENV: production
+    volumes:
+      - ./service-account.json:/opt/app/service-account.json
+
+  elasticsearch:
+    image: elasticsearch:5.1.1-alpine
