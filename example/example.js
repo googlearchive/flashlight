@@ -109,19 +109,19 @@
 
     // the rest of this just displays data in our demo and probably
     // isn't very interesting
-    var totalText = dat.total;
-    if( dat.hits && dat.hits.length !== dat.total ) {
-      totalText = dat.hits.length + ' of ' + dat.total;
+    var totalText = dat.hits.total;
+    if( dat.hits.hits && dat.hits.hits.length !== dat.hits.total ) {
+      totalText = dat.hits.hits.length + ' of ' + dat.hits.total;
     }
     $('#total').text('(' + totalText + ')');
 
     var $pair = $('#results')
       .text(JSON.stringify(dat, null, 2))
       .removeClass('error zero');
-    if( dat.error ) {
+    if( dat.hits.error ) {
       $pair.addClass('error');
     }
-    else if( dat.total < 1 ) {
+    else if( dat.hits.total < 1 ) {
       $pair.addClass('zero');
     }
   }
