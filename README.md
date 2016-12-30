@@ -60,11 +60,12 @@ After you've deployed to Heroku, you need to create your initial index name to p
 Migration
 =========
 
-January 1st, 2017
+0.2.0 -> 0.3.0
 -----------------
 
 Flashlight now returns the direct output of ElasticSearch, instead of just returning the _hits_ part. This change is required to support _aggregations_ and include richer information. You must change how you read the reponse accordingly. You can see example responses of Flashlight below:
-### Before
+
+### Before, in 0.2.0
 ```
 "total" : 1000,
 "max_score" : null,
@@ -72,7 +73,7 @@ Flashlight now returns the direct output of ElasticSearch, instead of just retur
   ..
 ]
 ```
-### After
+### After, in 0.3.0
 ```
 {
   "took" : 63,
