@@ -99,8 +99,8 @@
 
   // when results are written to the database, read them and display
   function showResults(snap) {
-    var dat = snap.val();
-    if( dat === null ) { return; } // wait until we get data
+    if( !snap.exists() ) { return; } // wait until we get data
+    var dat = snap.val().hits;
 
     // when a value arrives from the database, stop listening
     // and remove the temporary data from the database
@@ -109,19 +109,19 @@
 
     // the rest of this just displays data in our demo and probably
     // isn't very interesting
-    var totalText = dat.hits.total;
-    if( dat.hits.hits && dat.hits.hits.length !== dat.hits.total ) {
-      totalText = dat.hits.hits.length + ' of ' + dat.hits.total;
+    var totalText = dat.total;
+    if( dat.hits && dat.hits.length !== dat.total ) {
+      totalText = dat.hits.length + ' of ' + dat.total;
     }
     $('#total').text('(' + totalText + ')');
 
     var $pair = $('#results')
       .text(JSON.stringify(dat, null, 2))
       .removeClass('error zero');
-    if( dat.hits.error ) {
+    if( dat.error ) {
       $pair.addClass('error');
     }
-    else if( dat.hits.total < 1 ) {
+    else if( dat.total < 1 ) {
       $pair.addClass('zero');
     }
   }
